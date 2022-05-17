@@ -1,4 +1,19 @@
 input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-outer-spin-button {
 	-webkit-appearance: none;
 }
+
+.item-enter {
+	opacity: 0;
+  }
+  .item-enter-active {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+  }
+  .item-exit {
+	opacity: 1;
+  }
+  .item-exit-active {
+	opacity: 0;
+	transition: opacity 500ms ease-in;
+  }
