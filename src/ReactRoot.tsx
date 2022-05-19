@@ -8,7 +8,6 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Popup from 'reactjs-popup';
 import ImageIcon from '@mui/icons-material/Image';
-import { textAlign } from '@mui/system';
 
 const theme = createTheme({
     palette: {
@@ -32,7 +31,7 @@ function ReactRoot() {
     }
 
     // ----------- Tickers
-    const [tickers, setTickers] = useState<listData[]>([]);
+    const [tickers, setTickers] = useState<listData[]>(JSON.parse(localStorage.getItem('orders')));
 
     function submitTicker(e: any): void {
         if (orderNumber === "") {
@@ -81,7 +80,8 @@ function ReactRoot() {
     const arrowStyle = { color: '#f0f0f0' };
 
     const [businessName, setBusinessName] = useState<string>();
-    const [displayBusinessName, setDisplayBusinessName] = useState<string>();
+    const [displayBusinessName, setDisplayBusinessName] = useState<string>(JSON.parse(localStorage.getItem('businessName')));
+
 
     function handleBusinessNameChange(e: any) {
         setBusinessName(e.currentTarget.value);
@@ -91,12 +91,24 @@ function ReactRoot() {
         setDisplayBusinessName(businessName);
     }
 
-    const [history, setHistory] = useState<string[]>([]);
+    const [history, setHistory] = useState<string[]>(JSON.parse(localStorage.getItem('history')));
 
     function updateHistory(data: string) {
         setHistory([data, ...history.slice(0, 4)]);
     }
 
+    React.useEffect(() => {
+        localStorage.setItem('businessName', JSON.stringify(displayBusinessName));
+    }, [displayBusinessName]);
+
+    React.useEffect(() => {
+        localStorage.setItem('history', JSON.stringify(history));
+    }, [history]);
+
+    React.useEffect(() => {
+        localStorage.setItem('orders', JSON.stringify(tickers));
+    }, [tickers]);
+    
 
 
     return (
